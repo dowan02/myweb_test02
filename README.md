@@ -1,2 +1,2 @@
-# myweb_test02
-django, ch2, readme file
+#read_me test
+#read_me test2

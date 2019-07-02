@@ -1,0 +1,871 @@
+for i in range(100) : #0에서 99까지 실행문 루프
+for i in range(1,100): # 1에서 99까지 실행문 루프
+x= range(1,100) # 1에서 99까지 숫자생성 , range타입
+[a,b]=[10,11] ,page100
+if room in arrent ,page88
+type(_), type함수의 인자_는 최근의 반환값을 바인딩하고 있는 변수를 의미, page108
+변수의 첫 글자는 영어 또는 언더스코어(_)로 시작애야 하고 숫자로는 시작할 수 없음. page25
+for i,stock in enumerate(['Naver','KAKAO',''SK'])
+	print(i,stock)
+, page116
+print('*', end="") 줄바꿈하지 않음.
+
+def delete_contact(contact_list, delete_name):
+    for i,contact in enumerate(contact_list):
+        if contact.name==delete_name:
+            del contact_list[i]
+
+
+dir() 모듈안에 어떤 함수나 변수가 있는지 확인 (모듈의 구성요소를 리스트로 반환)
+os.getcwd() 현재경로를 문자열로 반환
+os.listdir() 현재경로에 존재하는 파일과 디렉터리 목록을 리스트로 반환 또는 ('경로')에 존재하는
+
+모듈내 변수는 전역변수? 모듈 임포트 후 변수값 변경가능
+한번 임포트된 모듈은 idle shell에서 실행시 모듈내용이 바뀌어도 변하지 않음.
+임포트를 중복으로 했을때는 재실행되지 않는다.(무시되는거 같음.)
+
+내장함수를 type()했을 경우: 클래스 type, 클래스 builtin funtion or method
+클래스 type이란???
+>>> type(int())
+<class 'int'>
+>>> type(int)
+<class 'type'>
+>>> type(sum)
+<class 'builtin_function_or_method'>
+
+>>> type(range)
+<class 'type'>
+>>> type(card)//클래스명
+<class 'type'>
+>>> type(card())//클래스오브젝트
+<class '__main__.card'>
+
+
+파이썬 IDLE은 인터프리터라서 명령어를 입력할때마다 해당 명령어를 바로 실행함.
+
+
+절차지향과 객체지향의 차이
+객체지향은 절차지향을 (사용자가 원하는 형태로)잘 포장하여 사용하기 쉽고 효율적인 프로그래밍이 가능하게 한다.
+주소록 프로그램을 예로 들면
+절차지향
+def setinfo(name,email,addr): // 이름, 이메일, 주소를 입력하여 리스트 형태로 리턴한다.
+def printcard(card_id) // 카드 출력
+----------------------------------------함수작성, 함수재사용을 위해 모듈화(card.py)
+import card
+card_id1=setinfo('kim','naver.com','seoul')
+printcard(card_id1)
+---------------------------------------함수의 사용, 
+card_id1이라는 데이터, 함수 setinfo, printcard가 별도로 존재
+(주석이 없다면 코드를 해석하지 않으면 함수의 사용목적, 사용대상을 알수없음.)
+
+객체지향
+class card:
+	def setinfo(self,name,email,addr):
+		self.name=name
+		self.email=email
+		self.addr=addr
+	def printcard(self):
+		print('name:',self.name)
+		print('e-mail:',self.email)
+		print('address:',self.addr)
+
+---------------------------------------클래스작성
+
+card_id1=card()
+card_id1.setinfo('kim','naver.com','seoul')
+card_id1.printcard()
+---------------------------------------클래스사용 (인스턴스 생성과 메서드호출)
+클래스는 새로운 타입(객체)를 정의하기 위해 사용
+클래스는 데이터와 함수로 이루어져있음=속성(attribute)과 메서드(method)로 이루어져있음.
+
+
+
+네임스페이스는 변수가 객체를 바인딩할떄 그 둘 사이의 관계를 저장하고 있는 공간을 의미한다.
+클래스 변수-클래스의 네임스페이스에 존재->여러 인스턴스간에 서로 공유해야 하는 값은 클래스변수를 통해 바인딩
+인스턴스 변수-인스턴스의 네임스페이스에 존재
+
+
+클래스.메서드() 형태로 호출
+인스턴스.메서드() 형태로 호출->self값을 자동으로 넘겨준다.
+
+
+---------------------------------------------------특이한점
+def list_test1(list_b):
+	list_b=['a','b']
+	list_b.append(18)
+	print('test:',list_b)
+
+>>>a=[0,1,2]
+>>>list_test1(a)
+['a','b',18]  
+>>>a
+[0,1,2]
+
+
+def list_test2(list_b):
+	list_b.append(18)
+	print('test:',list_b)
+>>>a=[0,1,2]
+>>>list_test2(a)
+[0,1,2,18] 
+>>>a
+[0,1,2,18]
+--------------------------------------------------
+
+
+>>> def list_test1(list_b):
+	print('test:',list_b, 'id',id(list_b))
+	list_b=['a','b']
+	list_b.append(18)
+	print('test:',list_b, 'id',id(list_b))
+
+	
+>>> a=[0,1,2]
+>>> list_test1(a)
+test: [0, 1, 2] id 91998968
+test: ['a', 'b', 18] id 91999088
+>>> id(a)
+91998968
+>>> a
+[0, 1, 2]
+
+--------------------------------------------------
+
+>>> def test(x):
+	print('test:',x, 'id', id(x))
+
+	
+>>> a=1
+>>> a
+1
+>>> test(a)
+test: 1 id 1813260480
+>>> id(a)
+1813260480
+-------------------------------------------------
+>>> def test(x):
+	x=x+1
+	print('test:',x, 'id', id(x))
+
+>>> a=1
+>>> a
+1
+>>> test(a)
+test: 2 id 1813260496
+>>> id(a)
+1813260480
+-------------------------------------------------
+함수호출과정에서 생성된 변수로 할당된 메모리는 함수종료시 메모리해제
+함수의 인자는 변수가 생성된게 아님.
+
+x=10
+def test():
+  print(x)
+>>>test()
+10
+***전역변수 사용
+def test():
+  print(x)
+  x=1
+  print(x)
+>>>test()
+***오류
+def test(x):
+  print(x)
+  x=1 #지역변수 사용가능
+  print(x)
+>>>test()
+10
+1
+***정상
+def test():
+  global x #함수내 전역변수 사용설정(맨처음 설정해야함)
+  print(x)
+  x=1
+  print(x)
+>>>test()
+10
+1
+>>>x
+1 # x의 값이 변경됨
+
+
+COM, component Object Model 여러 컴포넌트 객체를 이용해 프로그램을 개발하는 모델
+COM은 프로그래밍 언어와 상관없이 개발된 객체를 사용할 수 있게 해준다. page192
+COM객체를 생성하려면 win32com.client라는 모듈의 Dispatch메서드를 사용하면 됨.
+import win32com.client
+word=win32com.client.Dispatch('Word.Application')
+# word변수가 'Word어플리케이션'이라는COM객체를 바인딩한다.
+# word변수가 Word.dll의 Application클래스의 객체를 바인딩한다.
+
+키움증권->Open API+
+대신증권->CYBOS plus 
+(대신증권의 api를 사용하려면 CYBOS5설치실행->cybos plus 탭->로그인)
+(PyCharm 관리자권한으로 실행->코딩)
+import win32com.client
+instCpCybos= win32com.client.Dispatch('CpUtil.CpCybos') 
+print(instCpCybos.IsConnect)
+
+----------------------------------------------
+class MyWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('PyStock')
+        self.setGeometry(300,300,300,150)
+        self.kiwoom=QAxWidget('KHOPENAPI.KHOpenAPICtrl.1')
+	# 키움증권에서 제공하는 클래스를 사용하기 위해 ProgID를 QAxWidget 클래스의 생성자로 전달해서 인스턴스를 생성한다.
+	# QAxWidget클래스는 QWidget과 QAxBase라는 클래스를 상속받는다.
+
+        btn1=QPushButton('Login', self)
+        btn1.move(20,20)
+        btn1.clicked.connect(self.btn1_clicked)
+
+
+    def btn1_clicked(self):
+        ret=self.kiwoom.dynamicCall('CommConnect()') 
+	# OCX방식에서는 QAxBase클래스의 dynamicCall메서드를 사용해 원하는 메서드를 호출할수있다.
+
+if __name__=='__main__':
+    app=QApplication(sys.argv)
+    mywindow=MyWindow()
+    mywindow.show()
+    app.exec()
+----------------------------------------------
+self.kiwoom은 인스턴스변수, btn1은 클래스변수 왜? 의문page304->이유page309
+page 471, 클래스 내의 다른 메서드에서 참조할 때는 변수이름에 self를 붙여야 하고 그렇지 않은 경우에는 self를 붙이지 않는다.
+
+TR = Transaction 서버로부터 데이터를 주고받는 행위, 키움의 openapi에서는 다양한 TR을 제공함.
+TR을 사용해 데이터를 서버에 요청한 후 전송된 값을 받으면 됨.
+
+self.text_edit.append('종목코드'+code) , append 사용형식 +code ???
+
+
+책따라하면서 막혔던 부분
+(1) 파이참에서 pyqt 임포트하여 사용할때 에러 -> 파이참 버전올라가면서 가상env가 새로 생김, 파이썬 인터프리터 설정필요
+(2) pandas_datareader을 사용해 야후 주가데이타 얻어올때 에러 ->datareader 버전 다운그레이딩필요함 0.6.0->0.5.0
+(3) idle과 jupyter qtconsole의 차이? jupyther notebook은?
+
+x= range(0,100) #0에서부터 100미만 , range(100,0,-1) #100에서부터 0미만 -1은 감소를 뜻함.
+y=[v*v for v in x] #page 404
+
+pip
+import pandas 는 되나요?
+안되면 
+import sys
+print(sys.path)
+해서 해당 경로에 판다스가 있는지 찾아보세요
+
+python --version #파이썬 version 확인
+conda --version #conda version 확인
+conda install numpy  # numpy 설치
+conda install numpy selenium scipy  # numpy, selenium, scipy 동시 설치
+conda install numpy=1.2  # 특정 버전 설치
+conda remove package_name  # package_name 제거
+conda update conda  # 패키지 conda 업데이트
+또는 conda update -n base conda
+conda update -all  #모든 패키지 업데이트
+conda list  #설치된 패키지 목록 보여주기
+conda search search_item # 설치할 패키지 검색
+conda create -n py34 python=3.4 anaconda # 관리자모드에서 실행한다. 그리고 꼭 conda를 업데이트한다.
+#conda create 파이썬 개발환경을 추가로 생성하고 아나콘다의 설치디렉터리인 C:\Anaconda3\envs에 -n옵션을 통해
+지정한 이름 py34 로 디렉터리가 생성되고 해당 디렉터리 안에 지정한 버전의 파이썬 python3.4와 패키지가 설치된다.
+마지막 anacodna는 아나콘다의 기본패키지가 한번에 모두 설치됨을 의미함.
+set CONDA_FORCE_32BIT=1
+conda create -n py36_32 python=3.6 anaconda
+conda activate py36_32
+conda env list (동일 conda info --envs) # 가상환경 목록확인
+conda remove --name tensorflow35 --all #가상환경 삭제
+
+
+pip --version #pip버전확인c
+pip list
+pip install --upgrade pip
+python -m pip install --upgrade pip   #pip 업그레이드
+pip install 패키지이름
+pip install 패키지이름==
+pip uninstall 패키지이름
+pip search 패키지이름co
+pip install --upgrade 패키지이름 # 해당 패키지를 업데이트, 해당 패키지가 없을때는 설치
+which pip ???
+pip install -r requirements.txt  # 버전맞춰서 패키지 설치 한꺼번에 하기
+
+**   
+pip3 install 패키지이름 ??? pip와 pip3의 차이
+(파이썬2에서는 pip또는 pip2명령을 사용하여 패키지 설치, 파이썬3에서는 pip 또는 pip3 사용)
+(파이썬2 없이 파이썬 3이 기본설치된 경우에는 pip가 파이썬 3용 명령)
+(파이썬2와 3모두 버전이 붙지 않은 pip명령을 제공하지만 이름이 같으므로 구분하기 힘들기 때문에
+파이썬을 여러버전 설치(2와 3을 함께)했을때는 패키지설치 중복을 피하기위해 pip2와 pip3와 같이 버전을 붙여서 실행했음.)
+
+**** conda와 pip를 번갈아사용하다보면 동일한 패키지가 다른 버전으로 중복으로 깔릴수있음.
+때문에 패키지를 설치하기전에 conda list로 확인후 전 버전을 깨끗히 지운후 설치 (conda list에서는 pip로 설치된 항목까지 모두 확인가능)
+
+* 모듈대신 클래스를 쓰는 이유, 클래스를 쓰면 원한다면 한번에 백만개라도 필요한 만큼 만들어낼수있고 서로 간섭도 하지않음.
+모듈을 쓴다면 임포트할때 강력한 해킹을 하지않는한 프로그램 전체에서 딱 하나만 있게 됨.
+(1)클래스는 새 소형모듈을 만드는 청사진이나 정의 같은 것
+(2)인스턴스화는 이런 소형모듈 가운데 하나를 만들며 그것을 임포트하는 것
+(3)그 결과 객체라 불리는 소형모듈이 만들어지고 앞으로 쓸 수 있도록 변수에 대입
+
+* 함수대신 클래스를 쓰는 이유
+절차식프로그래밍 - 함수, 객체지향식프로그래밍 - 클래스
+함수사용하면 디버그하기도 좋고 구조이해도 쉽다. 하지만 대규모프로젝트 또는 큰사이즈의 프로그램을 만들경우
+협업시 타인이 모두 일일히 체크할수없기 때문에 변수나 함수의 이름이 중복될수있고 문제가 발생
+때문에 클래스로 한번더 포장하여 각 클래스내 유사한 항목(변수,메소드)에 대해서는 이름를 통일시킬수있다. 
+
+self는 인스턴스변수와 클래스변수를 구분해준다.
+class X(Y) , X클래스라는 Y의 일종(X is-a Y)를 만든다.
+class X(): def __init__(self, J), X클래스는 self와 J매개변수를 받는 __init__을 가졌다. (X클래스 has-a__init__) 
+class X(): def M(self, J), X클래스는 self와 J매개변수를 받는 M함수를 가졌다. (X클래스 has-a M함수)
+foo=X(), foo변수를 X클래스의 인스턴스 하나로 정한다.
+foo.M(J), foo변수에서 M함수를 받아 self, J매개변수를 넣어 호출한다.
+foo.K=Q, foo변수에서 K속성을 받아 Q값으로 정한다.
+
+
+입력데이터설정 SetInputValue -> TR을 서버로 전송 CommRqData-> 전송Transaction ->서버
+서버->Event->이벤트대기->수신데이터 가져오기 CommGetData
+
+
+a=' 키움 증권 '
+a.rstrip() , 마지막문자에 한해 공백제거 ' 키움 증권'
+a='키움 증권;'
+a.rstrip(';') , 마지막문자에 한해 세미콜론';' 제거 '키움 증권' 
+
+a.split(';') 세미콜론을 기준으로 문자열을 분리한다.
+
+
+487페이지 예제, for문 사용
+
+f.readlines() 과 readline() 사용 주의
+
+함수내 변수설정초기화는 맨앞줄에
+
+f=open('파일경로','wt) ->쓰기없이 f.close() 하면 빈파일, 내용날라감.
+
+
+Tr 조회 제한은 ?
+1. (비공개)제한이 3가지 입니다. 1초에 5건(0.2초) 1분에 100건(0.6초) 1시간 1000건(3.6초)
+2. 보통 간격 0.5초 주면 처리감안 0.6초이상 되서 1000건까지 됩니다.
+3. 0.5초시 10분정도 지나면 3번조건에 걸리는데 50분을 놀아야 됩니다.
+==> 결론) 1. 1000건 이하로 되게한다
+2. 1000건 하고 접속을 끊고 재접속한다.
+3. 시간은 3.6초로 한다.. 3가지중 하나 선택
+
+Tr조회와 실시간 조회의 차이점?
+
+setrealreg()함수를 이용하여 실시간 시세 조회
+
+def set_real_reg(ocx, strScreenNo, strCodeList, strFidList, strRealType):
+
+실시간 등록을 한다.
+종목, FID는 각각 한번에 실시간 등록 할 수 있는 개수는 100개 입니다.
+
+:param strScreenNo: 실시간 등록할 화면 번호
+:param strCodeList: 실시간 등록할 종목코드(복수종목가능 ? “종목1;종목2;종목3;....”)
+:param strFidList: 실시간 등록할 FID(“FID1;FID2;FID3;.....”)
+ex)9001;10;13;
+9001 ? 종목코드
+10 - 현재가
+13 - 누적거래량
+:param strRealType: "0", "1" 타입
+strRealType이 “0” 으로 하면 같은화면에서 다른종목 코드로 실시간 등록을 하게 되면
+ 마지막에 사용한 종목코드만 실시간 등록이 되고 기존에 있던 종목은 실시간이 자동 해지됨.
+“1”로 하면 같은화면에서 다른 종목들을 추가하게 되면 기존에 등록한 종목도 함께 실 시간 시세를 받을 수 있음.
+꼭 같은 화면이여야 하고 최초 실시간 등록은 “0”으로 하고 이후부터 “1”로 등록해야 함.
+ :return: 통신결과
+
+return ocx.dynamicCall("SetRealReg(QString, QString, QString, QString)", strScreenNo, strCodeList,
+ strFidList, strRealType)
+
+============================
+set_real_reg(ocx, "0101", '%s;%s' % ("001720", "201N4325"), "10;16;17;18", "0")
+주식종목, 옵션종목코드 구분없이 ';'로 나열하면 됩니다.	
+
+
+파이썬 2차원배열 만들기
+Numpy이용하기 외
+리스트 자료형으로 배열 흉내내기
+(1) 1차원 배열만들기
+arr=[]
+for i in range(10):
+	arr.append(0)
+또는
+arr=[0 for i in range(n)] #지능형 리스트 사용
+
+(2) 2차원 배열만들기
+파이썬에서는 리스트안에 리스트를 넣는 방식으로 2차원배열을 만든다.
+길이가 M인 배열N개를 하나의 리스트안에 넣는 형식
+arr=[]
+for i in range(5):
+	tmp=[]
+	for j in range(3):
+		tmp.append(0)
+	arr.append(tmp)
+또는
+arr=[[0 for j in range(3)]for i in range(5)]
+
+지능형리스트이용 필터링
+myList=['a','b','c',1,2,3]
+myListInt=[x for x in myList if isinstance(x, int)]
+
+numpy사용
+array
+transpose 전치
+reshape
+
+딕셔너리
+x={'a':10,'b':20}
+x['a']=1 a키값을 수정 10->1
+x['c']=5 c키값을 추가 x={'a':10,'b':20, 'c':5}
+x.update(a=100) 키값을 수정, 단 키가 문자열일때만
+x.setdefault('e') 딕셔너리에 키와 Nono값을 추가 (이미 들어있는 키의 값은 수정할 수 없음.)
+x.setdefualt('f',100) 딕셔너리에 키와 값을 추가
+x.items() for문에서 사용, 딕셔너리 키값쌍을 가져옴 [('a',10),('b',20)]
+x.keys()
+x.values()
+
+
+-----파이썬 기반 데이터분석-----18/08/20
+
+-개발환경 구축-
+1. 아나콘다 설치
+풀패키지 인스톨러 (필요한 라이브러리를 모두 묶어서 한번에 배포)
+서드 파트 인스톨러
+분석에 필요한 많은 패키지들이 다 포함되어 있어서 간편함, 편리성 -> 무겁다.
+<-> 파이썬 설치 및 필요한 패키지는 개별 설치 방식
+-python, numpy, pandas, matplotlib,...등
+
+2. 에디터(IDE)
+-쥬피터 노트북 사용
+1)특징: ipython(분석시 사용툴)을 내장하여 손쉽게 개발하기 위해 flask기반으로 개발툴(웹에서 구동)
+2)아나콘다를 깔면 자동설치되어있음. 파이썬만 깔려있을 경우 별도 설치 (pip install jupyter)
+-vs code
+1)ms 에서 제작한 IDE
+2)기본 파이썬 프로그램, gui, 웹 크롤링등에 편하게 사용, 분석에도 사용이 않되는 것은 아님.
+
+3. 데이터 분석과정
+* 데이터 수집(6)(7)-> 분석(0)(1)(2)-> 시각화(3)(4)(5)-> 보고서
+솔루션, 웹시각화 GUI->qt5, 인스톨러(exe, msi, dmg, pkg...), flask, Django
+정형적, 비정형적 데이터???
+
+-필요패키지
+beautifulsoup4==4.6.0         *4.6.0  (7) 크롤링->데이터 스크레치(웹데이터를 긁어오는 수준)
+googlemaps===2.5.1        없음.
+nltk==3.2.3               * 3.2.5     (2) 자연어 분석, 그 외 scikit_learn
+numpy==1.12.1              * 1.14.2 , (0) 수학/과학용 모듈
+scikit-learn==0.18.0       * 0.19.1
+seaborn==0.7.1              *0.8.1 , (4)시각화, 분포도, 점유율 등 matplotlib기반에서 좀더 구체적 지원
+sympy==1.0                * 1.1.1
+folium==0.5.0            없음.   , (5) 지도 시각화
+matplotlib==2.1.0         *2.1.2 , (3) 시각화 차트 , 분석결과를 시각화를 통해 직관적으로 알수있게 해줌.
+pandas==0.20.1          *0.22.0 , (1) R의 기능을 파이썬으로 그대로 구현, 점점더 R보다 기능이 많아지고 있음.
+scipy==0.19.0          * 1.0.0
+selenium==3.5.0                   (6) 브라우저 자동화처리->데이터수집시 사용되는자동화 모듈 ->크롤링 
+tqdm==4.14.0    
+
+http://naver.me/F9dPgu9n , 1111
+http://bit.ly/2MlqIEe
+
+pip list -> jupyter 1.0.0 패키지 확인 ->jupyter notebook 열기
+(제목쓰기) -> code에서 markdown으로 변경 -> ### 주석 데이터분석과정 * 데이터수집 시프트 엔터
+
+콘솔 프롬프트 -> 콘트롤c -> * 버전맞춰서 패키지 설치 한꺼번에 하기
+pip install -r requirements.txt
+
+4. 모듈 최신화 처리필요
+   pip install pandas --upgrade
+   pip install matplotlib --upgrade
+   pip install scikit-learn --upgrade
+   pip install scipy --upgrade
+   pip install folium
+
+패키지 설치시 기존 버전을 지우지않으면 중복설치된다. 특히 pip 와 conda 로 따로 설치될때
+그리고 버전별로도 각각 설치. 어떤 버전으로 동작되는지는 모르겠음.
+
+------------복습 & 파이썬 라이브러리를 활용한 데이터 분석----18/08/23-------------
+
+폴더 project_big ( 그외 project_DL/1_1.numpy_basic참고)
+
+A. numpy basic
+리스트와 배열의 차이 (배열은 엄밀히 말하면 numpy의 ndarray임.)
+
+(1) 배열의 생성
+arr= np.arange(10) # 0~9까지 1차원 배열생성
+x= np.arange(0,12,0.01) # 0~11.99까지 연속수 간격 지정 0.01로 지정
+x = np.linspace(0, 40, 100) # 0~40까지 등간격으로 100개의 수 생성
+arr= np.array([1,2,3,4]), arr=np.array([[1,2],[3,4]]) # 리스트로 부터 배열생성
+arr= np.random.random(2,3) # 0~1사이 무작위, "continuous uniform" distribution
+arr= np.random.randn(2,3) # 무작위 2*3 배열생성, 표준정규분포에서 표본 추출 standard normal distribution
+   = np.random.normal(size=(4,4)) # 무작위 4*4 배열생성, 정규분포에서 표본 추출 normal (Gaussian) distribution.
+   = np.random.normal(10,2, size=(10000)) #N(10,4), 정규분포에서 표본추출, 10000개
+arr= np.zeros((5,2)) # 다차원일때 튜플형식 , np.zeros(10) # 1차원 배열생성 및 0으로 초기화
+arr= np.ones((10,10)) # 다차원10*10, 1로 초기화
+arr= np.empty(11) # 배열생성, 초기화X
+arr.shape 형태, arr.dtype 타입, arr.ndim 깊이
+arr1=np.array([1,2,3], dtype=np.float64) # 배열생성시 타입지정
+arr1= arr1.astype(np.int64) # 배열 타입 변경
+arr= np.arange(32).reshape((8,4)) #배열 형태 변경
+arr= np.arange(10) -> arr.shape -> (10,)
+arr= np.arange(10).reshape(2,5) -> arr.shape -> (5,2)
+arr.reshape(-1,) -> (10,) 
+arr.reshape(-1,1) -> (10,1)
+arr.reshape(-1,5) -> (2,5)
+arr.reshape(5,-1) -> (5,2)
+
+(2) 배열의 연산
+배열끼리 연산가능 A*B, A+B, 내적(행렬곱) x.dot(v) 또는 np.dot(x,v)
+인덱싱 -> 차원축소
+슬라이싱-> 차원유지
+다차원 슬라이싱[1:,2:], 인덱싱+슬라이싱[1,2:], 슬라이싱시 범위를 주지않으면 [:] 복제
+불리언 인덱싱 A_data[B_data == 'b'] -> 차원유지
+불리언 인덱싱+슬라이싱 or +인덱싱  A_data[B_data == 'b', 2:],  A_data[B_data == 'b', 2]
+펜시 인덱싱 arr[[2,4,5]], arr[[1,5,7],[2,3,4]] arr[[1,5,7,2],[:,[0,3,1,2,]]
+인덱싱 및 값넣기 3*3 배열에서 a[1][2]= 0, a[1,2]=0, a[[1,2]]=0, a[1]=0 차이점 확인
+축변환 arr.T #a*b->b*a배열로 전환
+arr.transpose((2,2,4)), arr.swapaxed(1,2)
+
+(3) 유니버셜 함수 활용 (numpy 지원함수)
+np.sqrt(arr), np.maximum(arr1, arr2), 
+np.where(arr>0, arr, 0), np.where(condition, arr1, arr2) 특정조건에 참이면 arr1배열, 거짓이면 arr2배열에서 데이터 획득
+arr.mean() 평균, arr.sum() 합
+arr.mean(axis=0) 세로줄평균합 axis=1 가로줄평균합
+arr.cumsum(axis=0) 누적합, arr.cumprod(axis=0) 누적곱
+arr.any() 한개라도 참이 있는가, arr.all() 모두 참인가
+np.unique(arr) 중복제거
+ran= np.random.RandomState(1234) 랜덤시드 지정
+ran.randn(10) 시드가 동일하면 언제 수행해도 항상 같은 순서로 난수가 생성됨
+
+
+B. pandas basic
+# pandas 의 기본자료구조, Serise, DataFrame
+# Serise : 컬럼이 없음, 인덱스만 존재하는 자료구조
+# DataFrame: 인덱스와 컬럼이 존재하는 자료구조
+
+# 컬럼 이름바꾸기? df.rename(index={'kim':'A'}, columns={'best':'1'})
+# 인덱스 바꾸기? 
+df.reset_index() 아래와 반대되는 개념으로 index를 0,1,2~ 로 만든다.
+df1= df.set_index(['c','d']) 하나이상의 칼럼(c,d)을 색인으로 하는 새로운 df를 생성할수있다.
+df1= df.reindex(['a','b','c','d']), 새로운 색인 a~d으로 설정한다. 색인값이 비어있다면 Nan또는 새로 추가가능
+
+# NaN값 처리
+df['A'].isnull() # df A칼럼에서 nan값을 가지는 항목을 true로 반환
+nanIdx = df[df['A'].isnull()].index  # df A칼럼에서 nan값을 가지는 항목의 id를 얻는다.
+if nanIdx.any():
+    TR.loc[nanIdx, 'A'] = 0 # df['A'].fillna(0)과 동일
+df.dropna(subset=['A']) # df A칼럼에서 nan값을 가지는 항목을 삭제한다.
+df['A'].fillna(df['A'].median, inplace= True) # df A칼럼에서 nan값을 가지는 항목을 중간값으로 채워넣는다.
+
+# 열 또는 행 제거하기 
+df.drop(['E'], inplace=True, axis=1), E열 삭제, 또는 df.drop('E', axis=1) 또는 del df['E']
+df.drop(['행1', '행2']) # 디폴트로 axis=0, 행삭제임.
+
+# 데이터프레임 합치기 merge, join, concat
+# 각 데이터프레임을 컬럼기준으로 합치기
+pd.merge(df1, df2, on='A') # 두개의 df를 공통으로 있는(이름이 동일한) A컬럼을 기준으로 합친다. 교집합
+pd.merge(df3, df4, left_on='L', right_on='R') # 두개의 df에 공통컬럼이 없다면 따로 지정해준다. 교집합
+pd.merge(df1, df2, on='A', how='outer') # left 기본 교집합에 왼쪽 모든로우를 포함, right, outer 합집합 inner 교지합
+pd.merge(df1, df2, on=['A','B'], how='outer') # 여러개의 key로 병합할때는 리스트
+
+# 각 데이터프레임을 인덱스기준으로 합치기
+pd.merge(left, right, how='outer', left_index= True, right_index= True)
+left2.join(right2, how='outer') # 상기 동일
+
+pd.merge(df1, s.to_frame(), left_index= True, right_index= True) # 기존 df1에 시리즈s를 병합하려면 공통된 인덱스를 기준으로
+df1.merge(s.to_frame() .....) # 상기동일, 시리즈를 우선 데이터프레임으로 변환시킨다음 병합시킨다.
+
+pd.merge(df1, s.to_frame(), left_index= True, right_i
+ndex= True, how='left')
+left2.join(right2) # 상기동일, join의 기본값은 left2의 index값을 기준으로 합친다. 왼쪽 우선조인
+df1['컬럼']= s # 상기동일, 동일한 키가 아닐경우 NaN값으로 채워진다. df1의 인덱스기준으로 합친다.
+
+# concat
+pd.concat([s1,s2,s3]) # concat은 axis=0을 기본값으로 하고 새로운 시리즈 객체를 생성한다. axis=0은 로우방향으로
+pd.concat([s1,s2,s3], axis=1) # axis1은 컬럼방향(가로)를 의미한다. 데이터프레임을 생성한다.
+pd.concat([s1,s1,s3], keys=['one', 'two', 'three']) # 계층적 색인 생성
+pd.concat([s1,s1,s3], axis=1, keys=['one', 'two', 'three']) # keys는 컬럼제목이 된다.
+데이터프레임에 대해서도 위와 같은 방식으로 적용가능하다.
+
+# stack과 unstack
+stack은 컬럼을 로우로 회전시킨다.
+unstack은 로우를 컬럼으로 회전시킨다.
+
+
+# pandas pivot table
+
+
+시리즈 map(), apply()
+데이터프레임 apply(), applymap(), groupby
+
+map()
+df['class']= df['class].map({'Kim':'A', 'Seo':'B', 'Han':'C'}) # 치환
+
+apply()
+df['A']= df['A'].apply(lambda v:1 if v>=1.3 else 0)
+df['C'] df.apply(lambda r:r['A']*r['B'], axis=1) # axis 1은 인덱스방향, 0은 컬럼방향
+
+applymap() , 데이터프레임 전체 데이터셀에 적용한다.
+df.applymap(lambda v: np.log(v) if isinstance(v, float) else v
+df.applymap(lambda x: x if not '$' in str(x) else x.replace('$', ''))
+
+
+groupby
+df.groupby('A')['B'].mean()
+df['B']groupby('A').mean()
+
+
+pivot
+pivot_table
+groupby
+df.cut
+
+sort_values
+
+
+
+
+s= pd.Series([1,2,3]) # 리스트 또는 배열을 시리즈로 변환, 인덱스는 0,1,2...자동
+s= pd.Series(np.array([1,2,3]))
+s= pd.Series({'a':5, 'b':6}) # 딕셔너리를 시리즈로 변환, 인덱스는 a, b가 됨
+s= pd.Series([1,2,3], index=['a','b','c']) # 인덱스 설정가능
+시리즈는 index와 value로 구성되어있음.
+데이터프레임은 index, column, value로 구성
+
+df= pd.DataFrame(2, index=[1,2], columns=['갑','을']) # 2*2, 값을 2로 채움
+df= pd.DataFrame([[2,3],[4,5]], index=[1,2], columns=['갑','을']) # 2*2 값이 2,3,4,5로 채워짐
+a= pd.Series([1,4,np.nan,6]) # 시리즈의 생성
+a= pd.date_range('20180830', periods=7) # 날짜형을 연속으로 구성
+# 인덱스와 컬럼은 리스트로 부여, values는 스칼라, 리스트 또는 배열가능, 단 리스트일 경우 행열차원이 맞아야함.
+df= pd.DataFrame(values, index=dates, columns=cols) 
+df= pd.DataFrame({'key':['K0','K4'], 'A':['A0','A1']}) #딕셔너리로 데이터 프레임 생성, 컬럼은 key, A가 되고 index는 디폴트로 0,1,2~
+df= pd.DataFrame(a) # 시리즈에서 바로 데이터프레임 생성 , index와 column은 디폴트로 0,1,2~
+df=pd.DataFrame(a, index=[1,2,3,4,5], columns=['숫자']) # index와 column 지정
+df.head(), df.tail(), df.columns, df.index, 
+df.values # ndarray형식으로 나옴
+df.info() # 데이터프레임의 개요
+df.describe() # 데이터프레임의 통계적 개요 (개수, 평균, 표준편차, 최소/최대, 25%/50%/75% 지점 정보)
+df.sort_values(by='B', ascending=False) # B열 기준 내림차순
+df['C'] # 특정컬럼 데이터만 보기 -> 시리즈 형식, 차원축소
+df.C # 위와 동일
+df[1:3] # (행)슬라이싱, 차원유지
+df['2018-08-31':'2018-09-02'] # 인덱스 값을 사용해 (행)슬라이싱
+df.loc['2018-08-31'] # location 정보를 옵션으로 하여 슬라이싱 지원->컬럼명이 인덱스가 됨->시리즈형식, 차원축소
+df.loc[:,['A','B']] # (열)슬라이싱
+df.loc[:,df.columns[:2]] # (열)슬라이싱
+df.loc[1:2, ['B','C']] # 안된다.
+df.loc['2018-09-01':'2018-09-03', ['B','C']] # 행과열 슬라이싱
+df.loc[df.index[2:5], df.columns[1:3]]
+df.loc['2018-09-01', ['B','C']] # 차원축소
+df.loc['2018-09-01', 'B'] # 인덱싱 2번, 데이터프레임->시리즈->값 (차원축소2번)
+df.iloc[1] # 펜시인덱싱방식과 유사, 행과 열의 번호를 이요하여 데이터를 접근
+df.iloc[1,2] 와 df.iloc[[1,2]]의 차이점
+df.iloc[2:5, 1:3]
+df.iloc[[1,4,2],[0,2]] # 통상 슬라이싱은 데이터가 붙어있을때 가능, 인덱스지정이 떨어져있어도(불연속) 지정가능
+df.[df.C > 0] # C열 기준 0보다 큰 데이터를 가진 가로열 데이터만 모아서 출력
+df.[df > 0] # 조건에 해당되지 않을때 NaN으로 처리
+df.copy() 와 df[:] 동일함. 복제 df1=df와 차이점?
+
+
+
+# 기존 df에 데이터 추가 df['new_col']= 리스트
+# df['new_col']= 시리즈 ? 인덱스가 같으면 가능함?
+# 해당컬럼안에 특정값있는지 체크, df['해당컬럼'].isin(['특정값','특정값'])
+# 누적합 df.apply(np.cumsum)
+
+
+
+
+C. matplotlib basic
+
+#기본, 시각화폼
+plt.figure() 
+plt.figure(figsize=(10,6))
+
+plt.plot([1,2,3,4,5]) # 그리는 내용
+plt.plot(x,y, label='라벨', lw=3, 'r') # 라벨, 선굵기, 색상
+plt.plot(x,y, color='green', linestyle='dashed', marker='o', markerfacecolor='red', markersize=12)
+plt.plot(x,y, 'bs') # 데이터포인트만 표시하고 라인연결하지 않는다. 점을 박스로 표시
+plt.scatter(x,y, marker='>') #스캐터, 점만표시함수, 상기동일
+
+plt.grid() #격자배치
+plt.legend() #범례추가, 디폴트로 가장 적절한 위치로 지정
+plt.xlabel('time') #x축의 라벨
+plt.ylabel('sin(x)') #y축의 라벨
+plt.title('time of sin()') # 제목
+
+#그래프중 특정값 범위만 발췌
+plt.ylim(-1.2, 1.2)
+plt.xlim(0, 5)
+
+plt.show() #보여라
+
+#그래프여러개 그리기
+fig= plt.figure() #figure함수를 통해 Figure객체를 먼저 만든후
+ax1= fig.add_subplot(2,1,1) #add_subplot메서드를 통해 그리려는 그래프개수만큼 subplot을 만든다. 2*1행열에서 1번 subplot
+ax2= fig.add_subplot(2,1,2) # 2*1행열에서 2번 subplot
+plt.show()
+#Figure객체 생성하고 해당 Figure객체에 여러개의 AxesSubplot객체를 생성(위의 내용), 한꺼번에 하는 방법
+fig, ax_list= plt.subplot(2,2)
+# ax_list[0][0]~ax_list[1][1] 2*2구조의 총 4개의 그래프생성
+ax_list[0][0].plot(x,y)
+p419, figure객체, AxesSubplot객체 생성없이 plt.plot(x,y)만 해도 그래프가 그려지는 이유
+
+#Series와 DataFrame은 둘 다 plot이라는 메서드를 통해 다양한 형태의 그래프를 생성할 수 있다.
+# p323, 파이썬라이브러리를 활용한 데이터분석
+s= Series(z)
+s.plot()
+s.hist()
+df= DataFrame()
+df.plot() 또는 hist()
+
+
+______#################################################################################
+
+아나콘다4.3.1 ..... 파이썬3.6 (또는 3.5) 32bit
+conda cheat sheet (pdf) - conda 커맨드
+
+Unofficial Windows Binaries for Python Extension Packages 구글검색
+( 또는 https://www.lfd.uci.edu/~gohlke/pythonlibs/ )
+-> 사이트에서 Ctrl+f해서 TA_Lib 검색
+-> 자신의 버전에 맞는 파일을 다운받는다.
+-> (파이썬3.6버전에 32비트이면 TA_Lib-0.4.17-cp36-cp36m-win32.whl 받기)
+-> 아나콘다 프롬프트 -> 파일받은폴더로이동(cd.. cd Users\download)-> pip install TA_Lib-0.4.17-cp36-cp36m-win32.whl
+-> 사용법 구글검색 https://mrjbq7.github.io/ta-lib/
+
+
+mysql
+->mysql community server (네이버 검색)
+mysql connector
+->platform independent로 들어가서 tar또는 zip버전 받기
+heidisql
+->DB관리툴->다운로드 인스톨러 9.4
+PyCharm
+Visual Studio Code
+
+필요패키지
+mysqlconnector
+talib
+seaborn
+pandas-datareader
+pandasql
+
+설치커멘드
+conda install seaborn
+pip install mysql-connector-python-2.1.4.zip
+pip install TA-Lib....whl
+
+
+--------------------------------------------------------
+파이썬 아나콘다 32bit설치후 패키지 에러관련정보
+
+아나콘다 32bit 가상환경 설치후 코드실행시 
+다음 3가지에 대해 임포트에러 발생
+import matplotlib.pyplot as plt
+import seaborn as sns
+from PyQt5.QtWidgets import *
+
+ImportError: DLL load failed: 지정된 프로시저를 찾을 수 없습니다.
+ImportError: DLL load failed: 지정된 프로시저를 찾을 수 없습니다.
+
+<해결방법>
+(1) matplotlib 와 seaborn은 패키지 삭제 후 pip로 다시설치
+conda uninstall matplotlib -> pip install matplotlib
+conda uninstall seaborn -> pip install seaborn
+(2) PyQt5는 pip로 설치
+pip install PyQt5
+
+-----------------------------------------------------------
+아나콘다 path설정(설치시 path를 지정하지 않았을경우)
+제어판->시스템 및 보안-> 시스템->고급시스템설정-> 고급탭에 환경변수 클릭
+-> 시스템변수(또는 user변수)에 Path변수 클릭-> Path변수편집-> 다음경로추가 (한줄로 넣을경우 마지막;으로 구분)
+C:\Miniconda3;C:\Miniconda3\Library\mingw-w64\bin;C:\Miniconda3\Library\usr\bin;C:\Miniconda3\Library\bin;C:\Miniconda3\Scripts;
+
+-----------------------------------------------------------
+먼저 미니콘다설치후 여러버전의 가상환경을 설치해보며 버전에 대한 실험을 해보는것이 좋다.
+파이참 보다는 가벼운 비주얼 스튜디오 코드 Visual Studio Code -> 설치방법은 인터넷 검색
+
+-----------------------------------------------------------
+가상환경py64 프롬프트로 진입후
+conda env list에서 가상환경이 자신의 이름(py64)이 아니라 base로 설정돼있을경우
+conda를 지운다. pip uninstall conda
+콘다가 설치되었을때 , 안되었을때 영향????
+
+base   *C:\Miniconda3
+py64    C:\Miniconda3\envs\py64
+
+	C:\Miniconda3
+base   *C:\Miniconda3\envs\py64
+
+-----------------------------------------------------------
+일별주가 종목당 10개씩 읽어온다, 투자자수급 종목당 20개씩 읽어온다.
+pd.read_csv는 파일이름 한글로 하면 에러발생, 그리고 UFT-8로 인코딩되어있으면 엑셀파일에서 열때 한글깨짐
+메모장으로 연다음 ANSI로 다시 저장하면 된다.
+기간별 일별주가를 윈도우에 엑셀형식으로 뿌려주는데 1000건으로 하면 엄청 느려진다.
+(900개로 해본다. 연속조회로????)
+주가데이터백업->주가,수급,주체별매매수급,종목정보 : 도스용 쥬피터로
+쥬피터로 데이터분석 및 머신러닝
+
+추후 모델개발되면 모델적용하여 자동매매할 로봇은 GUI로 (매매종목선정 카톡메시지)
+
+______#################################################################################
+
+
+# 파이썬 스타일 코드, 파이썬스럽게 코딩 하자. 
+# for문 없이 문자열을 나누고 합친다.
+문자열.split(',') # 문자열을 ','쉼표기준으로 분리하여 리스트로 반환
+문자열.split() # 문자열을 빈칸기준으로 분리하여 리스트로 반환
+''.join(리스트) # 문자열로 구성된 리스트를 합쳐 하나의 문자열로 반환
+'-'.join(리스트) # 구분자'-'를 추가하여 합친다.
+# 리스트 컴프리헨션 (지능형리스트, 축약형리스트라고도 한다.)
+# 리스트와 for문을 한줄에 사용, 속도장점
+[i for i in range(10)] # [0,1,2,3,4,5.....9]
+[0 for i in range(10)] # [0,0,0,0,.......0]
+[i for i in range(10) if i%2==0] # [0,2,4,6,8], 필터링
+[i if i%2==0 else 10 for i in range(10)] # [0,10,2,10,4,10.....8,10], else문사용시 if문을 앞으로 옮긴다.
+[i+j for i in value1 for j in value2] # 중첩반복문
+[i+j for i in case1 for j in case2 if not(i==j)] # 중첩반복문 + 필터링
+[[i+j for i in case1]for j in case2] # 2차원 리스트
+[i for i in df.colunms if in 'apple'] # 특정 컬럼 필터링
+[scalar*vector for value in range(100)]
+{i:j for i,j in enumerate('apple tomato'.split())} # enumerate사용하여 인덱스를 붙여 딕셔너리 생성가능
+[(i,j) for (i,j) in enumerate('A,B,C'.split(','))] # [(0, 'A'), (1, 'B'), (2, 'C')]
+[sum(x) for x in zip((1,2,3),(10,20,30),(100,200,300))] # [111,222,333] # zip을 이용
+[(i,a,b) for i,(a,b) in enumerate(zip(alist,blist))] # [(0, 'A1', 'B1'), (1, 'A2', 'B2'), (2, 'A3', 'B3')]
+{i:(a,b) for i,(a,b) in enumerate(zip(alist,blist))} # {0: ('A1', 'B1'), 1: ('A2', 'B2'), 2: ('A3', 'B3')}
+# 람다함수와 맵
+람다함수: 함수의 이름없이, 함수처럼 사용할수있는 익명의 함수이다.
+파이썬 2버전에서 매우 많이 사용하였지만 최근에는 문법의 복잡성 떄문에 권장하지 않는다.
+하지만 기존코드를 이해하는데 필요하기 때문에 알아둘필요가 있다. 
+f= lambda x, y:x+y
+f(1,4) -> 5
+ex=[1,2,3]
+list(map,ex,ex) -> [2,4,6] # [x+y for x,y in zip(ex,ex)] 와 동일하다.
+f= lambda x:x**2
+f(3) -> 9
+list(map(f,ex)) -> [1,4,9]
+list(map(lambda x:x**2 if x%2==0 else x, ex)) # [x**2 if x%2==0 else x for x in ex] 와 동일하다.
+
+# 선형대수학의 기초적인 연산을 파이썬 스타일 코드로 구현하자.
+# 벡터연산
+[u+v+z for u,v,z in zip(u,v,z)] # 벡터 덧셈
+[sum(x) for x in zip(u,v,z)] # 상기동일
+# 행렬연산
+[[sum(j) for j in zip(*i)]for i in zip(matrix_a, matrix_b)] # 행렬의 덧셈
+[[sum(a*b for a,b in zip(row_a,col_b)) for col_b in zip(*matrix_b)]for row_a in matrix_a] # 행렬의 곱셈
+[[e for e in t]for t in zip(*matrix_b)] # 행렬의 전치
+# 행렬의 동치
+
+파이썬 버전 업데이트 3.5->3.6
+(리눅스) pyenv 검색 -> pyenv설치
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
